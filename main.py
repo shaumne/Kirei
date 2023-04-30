@@ -118,7 +118,7 @@ class ClickerApp:
                     current_proxy = random.choice(proxy_list)
                     print(current_proxy)
                 except IndexError:
-                    print("Proxy listesi boş.")
+                    print("Proxy list is empty.")
                     break
 
                 chrome_options = Options()
@@ -127,7 +127,7 @@ class ClickerApp:
                 chrome_options.add_argument("--mute-audio")
                 driver = webdriver.Chrome(options=chrome_options)
 
-                driver.set_page_load_timeout(30)
+                driver.set_page_load_timeout(60)
 
                 try:
                     driver.get(url)
@@ -136,7 +136,7 @@ class ClickerApp:
 
                     if self.soundcloud_var.get():
                         try:
-                            time.sleep(6)
+                            time.sleep(20)
                             soundcloud_button = driver.find_element(
                                 By.XPATH, "/html/body/div[2]/div[2]/div/div[1]/div/div[2]/div/button[1]")
                             soundcloud_button.click()
