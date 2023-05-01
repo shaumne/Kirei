@@ -124,8 +124,8 @@ class ClickerApp:
 
                 chrome_options = Options()
                 chrome_options.add_argument('--proxy-server=http://%s' % current_proxy)
-                # chrome_options.add_argument("--headless")
-                # chrome_options.add_argument("--mute-audio")
+                chrome_options.add_argument("--headless")
+                chrome_options.add_argument("--mute-audio")
                 driver = webdriver.Chrome(options=chrome_options)
 
                 driver.set_page_load_timeout(60)
@@ -137,31 +137,26 @@ class ClickerApp:
 
                     if self.soundcloud_var.get():
                         try:
-                            time.sleep(30)
+                            time.sleep(10)
                             try:
-                                try:
-                                    soundcloud_button = driver.find_element(
-                                        By.XPATH, "/html/body/div[2]/div[2]/div/div[1]/div/div[2]/div/button[1]")
-                                    soundcloud_button.click()
-                                except:
-                                    soundcloud_play_button = driver.find_element(
-                                    
-                                        By.XPATH, "/html/body/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/div[2]/div/div/div[1]/a")
-                                    soundcloud_play_button.click()
+                        
+                                soundcloud_button = driver.find_element(
+                                    By.XPATH, "/html/body/div[2]/div[2]/div/div[1]/div/div[2]/div/button[1]")
+                                soundcloud_button.click()
 
                             except:
                                 print("Cannot click the cookie button")
-                            time.sleep(20)
+                            # time.sleep(20)
 
-                            try:
-                                soundcloud_play_button = driver.find_element(
+                            # try:
+                            #     soundcloud_play_button = driver.find_element(
                                     
-                                    By.XPATH, "/html/body/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/div[2]/div/div/div[1]/a")
-                                soundcloud_play_button.click()
-                                print("yes!!")
-                            except:
-                                print("Cannot click the play button")
-                                driver.quit()
+                            #         By.XPATH, "/html/body/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/div[2]/div/div/div[1]/a")
+                            #     soundcloud_play_button.click()
+                            #     print("yes!!")
+                            # except:
+                            #     print("Cannot click the play button")
+                            #     driver.quit()
                             
                         except Exception as e:
                             print(f"Error while clicking: {e}")
