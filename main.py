@@ -34,6 +34,8 @@ class ClickerApp:
         self.file_path = filedialog.askopenfilename(filetypes=[("Text Files", "*.txt")])
         print(self.file_path)
 
+
+
     def create_first_screen(self):
         self.root.title("Kirei")
         tk.Label(self.root, text="URL:").grid(
@@ -81,7 +83,19 @@ class ClickerApp:
         self.listen_label = tk.Label(self.root, text="")
 
 
+        def disable_soundcloud():
+            if self.soundcloud_var.get():
+                self.beatstars_checkbutton.config(state=tk.DISABLED)
+            else:
+                self.beatstars_checkbutton.config(state=tk.NORMAL)
+        
+        def disable_beatstars():
+            if self.beatstars_var.get():
+                self.soundcloud_checkbutton.config(state=tk.DISABLED)
+            else:
+                self.soundcloud_checkbutton.config(state=tk.NORMAL)
 
+        
     def start_clicking(self):
         self.process_label.config(text="Process started")
         url = self.url_entry.get()
@@ -122,9 +136,9 @@ class ClickerApp:
                     break
 
                 chrome_options = Options()
-                chrome_options.add_argument('--proxy-server=http://%s' % current_proxy)
-                chrome_options.add_argument("--headless")
-                chrome_options.add_argument("--mute-audio")
+                # chrome_options.add_argument('--proxy-server=http://%s' % current_proxy)
+                # chrome_options.add_argument("--headless")
+                # chrome_options.add_argument("--mute-audio")
                 driver = webdriver.Chrome(options=chrome_options)
 
                 driver.set_page_load_timeout(60)
@@ -136,12 +150,13 @@ class ClickerApp:
 
                     if self.soundcloud_var.get():
                         try:
-                            time.sleep(20)
+                            time.sleep(10)
                             soundcloud_button = driver.find_element(
                                 By.XPATH, "/html/body/div[2]/div[2]/div/div[1]/div/div[2]/div/button[1]")
                             soundcloud_button.click()
-                            time.sleep(6)
+                            time.sleep(3)
                             soundcloud_play_button = driver.find_element(
+                                
                                 By.XPATH, "/html/body/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/div[2]/div/div/div[1]/a")
                             soundcloud_play_button.click()
                             print("yes!!")
@@ -152,7 +167,7 @@ class ClickerApp:
                         try:
                             time.sleep(6)
                             beatstars_button = driver.find_element(
-                                By.XPATH, "/html/body/div[4]/div[2]/div/div[1]/div/div[2]/div/button[3]")
+                                By.XPATH, "/html/body/div[4]/div[2]/div/div[1]/div/div[2]/div/button[2]")
                             beatstars_button.click()
                             time.sleep(3)
                             beatstars_play_button = driver.find_element(
@@ -162,7 +177,8 @@ class ClickerApp:
                             print(f"Error while clicking: {e}")
                             print("nope")
                     print("Process finished")
-                    time.sleep(10)
+                    listen = int(self.listen.get())
+                    time.sleep(listen) 
 
                     driver.quit()
                     time.sleep(4)
