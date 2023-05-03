@@ -8,7 +8,7 @@ def test_proxy(proxy):
     driver = webdriver.Chrome(chrome_options=chrome_options)
 
     try:
-        driver.get("https://soundcloud.com/punjab-studio/confess-jerry")
+        driver.get("https://tinyurl.com/jax12aqm")
         return True
     except Exception as e:
         print("Proxy is not working:", e)
